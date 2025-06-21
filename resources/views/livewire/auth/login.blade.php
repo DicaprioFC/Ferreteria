@@ -40,6 +40,13 @@ new #[Layout('components.layouts.auth')] class extends Component {
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
+         // Aquí chequeamos si el usuario es admin (id=1)
+         if (Auth::user()->id === 1) {
+            // Redirige a la vista admin
+            $this->redirect(route('admin.dashboard'), true);
+            return;
+        }
+
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
 

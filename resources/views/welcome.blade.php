@@ -11,32 +11,32 @@
 </head>
 
 <body class=>
-<header>
-    <div class="container-hero">
-        <div class="container hero">
-            <div class="customer-support">
-                <!-- Podrías colocar algo aquí si necesitas -->
-            </div>
+    <header>
+        <div class="container-hero">
+            <div class="container hero">
+                <div class="customer-support">
+                    <!-- Podrías colocar algo aquí si necesitas -->
+                </div>
 
-            <div class="container-logo">
-                <h1 class="logo"><a href="/">KFierrote</a></h1>
-            </div>
+                <div class="container-logo">
+                    <h1 class="logo"><a href="/">KFierrote</a></h1>
+                </div>
 
-            @if (Route::has('login'))
-            <div class="auth-links">
-                @auth
-                <!--<a href="{{ url('/dashboard') }}">Dashboard</a>-->
-                @else
-                <a href="{{ route('login') }}">Log in</a>
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}">Register</a>
+                @if (Route::has('login'))
+                <div class="auth-links">
+                    @auth
+                    <!--<a href="{{ url('/dashboard') }}">Dashboard</a>-->
+                    @else
+                    <a href="{{ route('login') }}">Log in</a>
+                    @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Register</a>
+                    @endif
+                    @endauth
+                </div>
                 @endif
-                @endauth
             </div>
-            @endif
         </div>
-    </div>
-</header>
+    </header>
 
 
     <section class="banner">

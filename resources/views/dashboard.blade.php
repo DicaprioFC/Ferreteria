@@ -6,75 +6,81 @@
 	<title>Dashboard Vendedor</title>
 	<link rel="stylesheet" href="styles.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-	/* Contenedor del carrito */
-.relative.inline-block {
-  position: relative;
-  cursor: pointer;
-}
+	<style>
+		/* Contenedor del carrito */
+		.relative.inline-block {
+			position: relative;
+			cursor: pointer;
+		}
 
-/* Icono del carrito */
-.fa-cart-shopping {
-  color: #2563eb; /* azul Tailwind-600 */
-  transition: color 0.3s ease;
-}
+		/* Icono del carrito */
+		.fa-cart-shopping {
+			color: #2563eb;
+			/* azul Tailwind-600 */
+			transition: color 0.3s ease;
+		}
 
-.fa-cart-shopping:hover {
-  color: #1e40af; /* azul más oscuro al pasar el mouse */
-}
+		.fa-cart-shopping:hover {
+			color: #1e40af;
+			/* azul más oscuro al pasar el mouse */
+		}
 
-/* Contador de cantidad */
-.relative.inline-block > span {
-  position: absolute;
-  top: -8px;
-  right: -10px;
-  background-color: #dc2626; /* rojo Tailwind-600 */
-  color: white;
-  font-size: 0.75rem; /* text-xs */
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 9999px; /* completamente redondeado */
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  user-select: none;
-  pointer-events: none;
-  
-  /* Animación de aparición */
-  transform-origin: center;
-  animation: pop-in 0.3s ease forwards;
-}
+		/* Contador de cantidad */
+		.relative.inline-block>span {
+			position: absolute;
+			top: -8px;
+			right: -10px;
+			background-color: #dc2626;
+			/* rojo Tailwind-600 */
+			color: white;
+			font-size: 0.75rem;
+			/* text-xs */
+			font-weight: 700;
+			padding: 2px 6px;
+			border-radius: 9999px;
+			/* completamente redondeado */
+			box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+			user-select: none;
+			pointer-events: none;
 
-/* Animación para que el contador "salte" cuando cambia */
-@keyframes pop-in {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  80% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-}
+			/* Animación de aparición */
+			transform-origin: center;
+			animation: pop-in 0.3s ease forwards;
+		}
 
-</style>
+		/* Animación para que el contador "salte" cuando cambia */
+		@keyframes pop-in {
+			0% {
+				transform: scale(0.5);
+				opacity: 0;
+			}
+
+			80% {
+				transform: scale(1.2);
+				opacity: 1;
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+	</style>
 </head>
 
 <body class="bg-gray-100">
 
 	<div class="container mx-auto p-6">
 
-	
+
 		<h1 class="text-2xl font-bold mb-6">Dashboard de Vendedor</h1>
 
 
 		<form method="POST" action="{{ route('logout') }}" class="w-full">
-                    @csrf
-                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                        {{ __('Log Out') }}
-                    </flux:menu.item>
-                </form>
+			@csrf
+			<flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
+				{{ __('Log Out') }}
+			</flux:menu.item>
+		</form>
 
 		<form method="GET" action="{{ route('vendedor.filtro') }}" class="mb-6">
 			<div class="flex flex-wrap gap-4">

@@ -25,9 +25,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 use App\Http\Controllers\AdminController;
+
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-   
 });
 
 
@@ -73,7 +73,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Vendedor\VendedorProductoController::class, 'index'])->name('dashboard');
 
     Route::get('/vendedor/filtro', [App\Http\Controllers\Vendedor\VendedorProductoController::class, 'buscar'])->name('vendedor.filtro');
-
 });
 
 
@@ -89,9 +88,20 @@ Route::get('/carrito', [CarritoController::class, 'verCarrito'])->name('carrito.
 use App\Http\Controllers\VentaController;
 
 Route::get('/ventas/exito/{id}', [VentaController::class, 'exito'])->name('ventas.exito');
-
-
 Route::get('/ventas/pdf/{id}', [VentaController::class, 'generarPDF'])->name('ventas.pdf');
 
 
-require __DIR__.'/auth.php';
+use App\Http\Controllers\ReporteController;
+
+Route::get('/reportes/ventas', [ReporteController::class, 'ventas'])->name('reportes.ventas');
+Route::get('reportes/inventario', [ReporteController::class, 'inventario'])->name('reportes.inventario');
+Route::get('/reportes/mas-vendidos', [ReporteController::class, 'masVendidos'])->name('reportes.masvendidos');
+Route::get('/reportes/stock-bajo', [ReporteController::class, 'stockBajo'])->name('reportes.stockbajo');
+
+Route::get('reportes/inventario/pdf', [ReporteController::class, 'exportarInventarioPDF'])
+    ->name('reportes.inventario.pdf');
+
+Route::get('reportes/ventas/pdf', [ReporteController::class, 'exportarVentasPDF'])->name('reportes.ventas.pdf');
+
+
+require __DIR__ . '/auth.php';

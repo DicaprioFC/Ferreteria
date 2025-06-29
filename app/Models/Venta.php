@@ -9,8 +9,8 @@ class Venta extends Model
     protected $fillable = ['fecha', 'total', 'nombre_cliente', 'ci_cliente'];
 
 
-    public function detalles()
+    public function detalleVentas()
     {
-        return $this->hasMany(DetalleVenta::class);
+        return $this->hasMany(DetalleVenta::class, 'venta_id');
     }
 }

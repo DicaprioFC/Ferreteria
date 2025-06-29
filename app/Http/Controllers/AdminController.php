@@ -2,27 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Categoria;
+use App\Models\User;
+use App\Models\Proveedor;
+use App\Models\Producto;
+use App\Models\Venta;
+use App\Models\Entrada;
+use App\Models\Salida;
 
 class AdminController extends Controller
 {
-   
-
     public function dashboard()
     {
         return view('admin.dashboard', [
-            'clientes' => 16,
-            'proveedores' => 10,
-            'productos' => 185,
-            'facturas' => 2,
-            'existencia_total' => 308,
-            'existencia_vendida' => 69,
-            'existencia_actual' => 239,
-            'importe_vendido' => 1835,
-            'importe_pagado' => 1835,
-            'importe_restante' => 0,
-            'beneficio_bruto' => 617,
-            'beneficio_neto' => 617
+            'usuarios' => User::count(),
+            'proveedores' => Proveedor::count(),
+            'productos' => Producto::count(),
+            'ventas' => Venta::count(),
+            'entradas' => Entrada::count(),
+            'salidas' => Salida::count(),
+            'categorias' => Categoria::count(),
+            'existencia_total' => Producto::sum('stock'),
+            'existencia_vendida' => Salida::sum('cantidad'),
+            'existencia_actual' => Producto::sum('stock') - Salida::sum('cantidad'),
         ]);
     }
 }

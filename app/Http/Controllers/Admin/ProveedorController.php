@@ -12,13 +12,13 @@ class ProveedorController extends Controller
     public function index()
     {
         $proveedores = Proveedor::orderBy('nombre')->get();
-        return view('admin.proveedor', compact('proveedores'));
+        return view('admin.provedores.index', compact('proveedores'));
     }
 
     // Mostrar formulario para crear proveedor
     public function create()
     {
-        return view('admin.crearpro');
+        return view('admin.provedores.crearpro');
     }
 
     // Guardar nuevo proveedor

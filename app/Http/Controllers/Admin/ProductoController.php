@@ -13,14 +13,14 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = Producto::with('categoria', 'proveedor')->get();
-        return view('admin.productos', compact('productos'));
+        return view('admin.productos.index', compact('productos'));
     }
 
     public function create()
     {
         $categorias = Categoria::all();
         $proveedores = Proveedor::all();
-        return view('admin.crear', compact('categorias', 'proveedores'));
+        return view('admin.productos.crear', compact('categorias', 'proveedores'));
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class ProductoController extends Controller
     {
         $categorias = Categoria::all();
         $proveedores = Proveedor::all();
-        return view('admin.editar', compact('producto', 'categorias', 'proveedores'));
+        return view('admin.productos.editar', compact('producto', 'categorias', 'proveedores'));
     }
 
     public function update(Request $request, Producto $producto)

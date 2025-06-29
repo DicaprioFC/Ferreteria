@@ -10,7 +10,7 @@ class Producto extends Model
         'codigo',
         'nombre',
         'descripcion',
-        'imagen_url', // 👈 Agrega esta línea
+        'imagen_url',
         'categoria_id',
         'precio_compra',
         'precio_venta',

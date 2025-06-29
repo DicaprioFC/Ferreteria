@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Resultados de Búsqueda</title>
-    <link rel="stylesheet" href="/styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+	<meta charset="UTF-8">
+	<title>Resultados de Búsqueda</title>
+	<link rel="stylesheet" href="/styles.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
+
 <body>
-    <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-6">Resultados de Búsqueda</h1>
+	<div class="container mx-auto p-6">
+		<h1 class="text-2xl font-bold mb-6">Resultados de Búsqueda</h1>
 
-        <a href="{{ route('dashboard') }}" class="text-blue-600 underline mb-4 inline-block">← Volver al Dashboard</a>
+		<a href="{{ route('dashboard') }}" class="text-blue-600 underline mb-4 inline-block">← Volver al Dashboard</a>
 
 
-        <div class="flex justify-end mb-4">
+		<div class="flex justify-end mb-4">
 			<a href="{{ route('carrito.ver') }}" class="relative inline-block">
 				<i class="fa-solid fa-cart-shopping text-3xl text-blue-700"></i>
 				@if(isset($cantidadCarrito) && $cantidadCarrito > 0)
@@ -24,10 +26,10 @@
 			</a>
 		</div>
 
-        @if($categorias->isEmpty())
-            <p>No se encontraron productos.</p>
-        @else
-        @foreach ($categorias as $categoria)
+		@if($categorias->isEmpty())
+		<p>No se encontraron productos.</p>
+		@else
+		@foreach ($categorias as $categoria)
 		<section class="mb-10">
 			<h2 class="text-xl font-semibold text-blue-800 mb-4">{{ $categoria->nombre }}</h2>
 
@@ -69,7 +71,8 @@
 			</div>
 		</section>
 		@endforeach
-        @endif
-    </div>
+		@endif
+	</div>
 </body>
+
 </html>

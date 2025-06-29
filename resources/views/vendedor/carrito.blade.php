@@ -14,6 +14,7 @@
 
         <div class="mt-6 flex justify-between items-center">
             <a href="{{ route('dashboard') }}" class="text-blue-600 hover:underline">← Volver al Dashboard</a>
+        </div>
 
         @if(session('success'))
         <p class="text-green-600">{{ session('success') }}</p>
@@ -37,11 +38,12 @@
                 <tr>
                     <td>{{ $item['nombre'] }}</td>
                     <td><img src="{{ $item['imagen'] }}" class="h-12" /></td>
-                    <td>${{ number_format($item['precio'], 2) }}</td>
+                    <td>Bs {{ number_format($item['precio'], 2) }}</td>
                     <td>{{ $item['cantidad'] }}</td>
                     <td>
                         <form action="{{ route('carrito.eliminar', $id) }}" method="POST">
-                            @csrf @method('DELETE')
+                            @csrf
+                            @method('DELETE')
                             <button class="text-red-500">Eliminar</button>
                         </form>
                     </td>
@@ -49,6 +51,17 @@
                 @endforeach
             </tbody>
         </table>
+
+        @php
+        $total = 0;
+        foreach ($carrito as $item) {
+        $total += $item['precio'] * $item['cantidad'];
+        }
+        @endphp
+
+        <div class="text-right text-xl font-bold mb-4">
+            Total: Bs {{ number_format($total, 2) }}
+        </div>
 
         <form action="{{ route('carrito.confirmar') }}" method="POST" class="bg-white p-4 rounded shadow mt-6">
             @csrf

@@ -123,16 +123,44 @@
                     </a>
                 </div>
             </div>
+<!-- Reportes submenu -->
+<div>
+    <button @click="openSubmenu === 'reportes' ? openSubmenu = null : openSubmenu = 'reportes'" type="button"
+        class="flex items-center justify-between w-full px-3 py-3 text-sm font-medium rounded-md hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500
+        text-gray-700 dark:text-gray-300">
+        <div class="flex items-center">
+            <!-- Icon Report -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6h6v6m-3-10h.01M6 6h12v12H6z" />
+            </svg>
+            Reportes
+        </div>
+        <!-- Flecha más pequeña -->
+        <svg :class="{ 'rotate-180': openSubmenu === 'reportes' }" class="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+    <div x-show="openSubmenu === 'reportes'" x-collapse class="pl-10 mt-1 space-y-1">
+        <a href="{{ route('reportes.ventas') }}"
+            class="block px-3 py-1 rounded hover:bg-blue-500 hover:text-white text-sm text-gray-700 dark:text-gray-300">
+            Ventas por Período
+        </a>
+        <a href="{{ route('reportes.inventario') }}"
+            class="block px-3 py-1 rounded hover:bg-blue-500 hover:text-white text-sm text-gray-700 dark:text-gray-300">
+            Inventario Actual
+        </a>
+        <a href="{{ route('reportes.masvendidos') }}"
+            class="block px-3 py-1 rounded hover:bg-blue-500 hover:text-white text-sm text-gray-700 dark:text-gray-300">
+            Productos Más Vendidos
+        </a>
+        <a href="{{ route('reportes.stockbajo') }}"
+            class="block px-3 py-1 rounded hover:bg-blue-500 hover:text-white text-sm text-gray-700 dark:text-gray-300">
+            Productos con Stock Bajo
+        </a>
+    </div>
+</div>
 
-            <!-- Reportes -->
-            <a href="#" class="group flex items-center px-3 py-3 rounded-md text-sm font-medium hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500
-                text-gray-700 dark:text-gray-300">
-                <!-- Icon Report -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6h6v6m-3-10h.01M6 6h12v12H6z" />
-                </svg>
-                Reportes
-            </a>
+
 
         </nav>
 

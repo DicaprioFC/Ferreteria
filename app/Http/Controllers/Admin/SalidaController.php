@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Salida;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class SalidaController extends Controller
 {
@@ -27,6 +29,7 @@ class SalidaController extends Controller
             'producto_id' => 'required|exists:productos,id',
             'cantidad' => 'required|integer|min:1',
             'precio_unitario' => 'required|numeric|min:0',
+            'user_id' => Auth::id(),
         ]);
 
         $producto = Producto::find($data['producto_id']);

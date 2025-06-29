@@ -39,6 +39,8 @@
                     <td class="py-2 px-4">{{ $salida->producto->nombre ?? 'Producto eliminado' }}</td>
                     <td class="py-2 px-4 text-right">{{ $salida->cantidad }}</td>
                     <td class="py-2 px-4 text-right">${{ number_format($salida->precio_unitario, 2) }}</td>
+                    <td>{{ $salida->usuario?->name ?? 'N/A' }}</td>
+
                     <td class="py-2 px-4 text-center">{{ $salida->created_at->format('d/m/Y H:i') }}</td>
                 </tr>
             @empty

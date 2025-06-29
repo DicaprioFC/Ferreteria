@@ -12,4 +12,9 @@ class Salida extends Model
     {
         return $this->belongsTo(Producto::class);
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
 }

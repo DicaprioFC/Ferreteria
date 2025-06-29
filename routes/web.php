@@ -104,4 +104,9 @@ Route::get('reportes/inventario/pdf', [ReporteController::class, 'exportarInvent
 Route::get('reportes/ventas/pdf', [ReporteController::class, 'exportarVentasPDF'])->name('reportes.ventas.pdf');
 
 
+
+
+
+
+
 require __DIR__ . '/auth.php';

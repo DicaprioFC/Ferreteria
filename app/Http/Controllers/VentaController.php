@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Venta;
+use App\Models\DetalleVenta;
+
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -13,6 +16,7 @@ class VentaController extends Controller
     $venta = \App\Models\Venta::with('detalles.producto')->findOrFail($id);
     return view('vendedor.exito', compact('venta'));
 }
+
 
 
     public function generarPDF($id)

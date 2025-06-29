@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salida extends Model
 {
-    protected $fillable = ['producto_id', 'cantidad', 'precio_unitario'];
+    protected $fillable = ['producto_id', 'cantidad', 'precio_unitario', 'user_id'];
 
     public function producto()
     {

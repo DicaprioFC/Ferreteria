@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>Venta Exitosa</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
-
 <body class="bg-green-50 text-gray-900">
 
     <div class="max-w-4xl mx-auto p-6 mt-10 bg-white shadow rounded">
@@ -29,12 +27,12 @@
             </thead>
             <tbody>
                 @foreach ($venta->detalles as $detalle)
-                <tr class="text-center">
-                    <td class="border px-2 py-1">{{ $detalle->producto->nombre }}</td>
-                    <td class="border px-2 py-1">{{ $detalle->cantidad }}</td>
-                    <td class="border px-2 py-1">{{ number_format($detalle->precio_unitario, 2) }}</td>
-                    <td class="border px-2 py-1">{{ number_format($detalle->precio_unitario * $detalle->cantidad, 2) }}</td>
-                </tr>
+                    <tr class="text-center">
+                        <td class="border px-2 py-1">{{ $detalle->producto->nombre }}</td>
+                        <td class="border px-2 py-1">{{ $detalle->cantidad }}</td>
+                        <td class="border px-2 py-1">{{ number_format($detalle->precio_unitario, 2) }}</td>
+                        <td class="border px-2 py-1">{{ number_format($detalle->precio_unitario * $detalle->cantidad, 2) }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -49,5 +47,4 @@
     </div>
 
 </body>
-
 </html>

@@ -29,21 +29,22 @@ class SalidaController extends Controller
             'producto_id' => 'required|exists:productos,id',
             'cantidad' => 'required|integer|min:1',
             'precio_unitario' => 'required|numeric|min:0',
-            'user_id' => Auth::id(),
         ]);
-
+    
+        $data['user_id'] = Auth::id(); // Esto fuera del validate
+    
         $producto = Producto::find($data['producto_id']);
-
+    
         if ($producto->stock < $data['cantidad']) {
             return back()->withErrors(['cantidad' => 'No hay suficiente stock disponible.']);
         }
-
+    
         Salida::create($data);
-
-        // Actualizar el stock
+    
         $producto->stock -= $data['cantidad'];
         $producto->save();
-
+    
         return redirect()->route('admin.salidas.index')->with('success', 'Salida registrada y stock actualizado.');
     }
+    
 }

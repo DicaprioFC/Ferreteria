@@ -20,6 +20,6 @@
             <x-card color="bg-teal-500" icon="💵" title="Beneficio Neto" :value="'$' . $beneficio_neto" />
         </div>
     </div>
-
+    
     
 </x-layouts.app>

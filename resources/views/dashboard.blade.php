@@ -69,55 +69,46 @@
 
 <body class="bg-gray-100">
 
-	<div class="container mx-auto p-6">
+<header class="dashboard-header">
+	<div class="dashboard-header-top">
+		<h1 class="dashboard-header-title">Dashboard de Vendedor</h1>
 
-
-		<h1 class="text-2xl font-bold mb-6">Dashboard de Vendedor</h1>
-
-
-		<form method="POST" action="{{ route('logout') }}" class="w-full">
+		<form method="POST" action="{{ route('logout') }}">
 			@csrf
-			<flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
+			<flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="logout-button">
 				{{ __('Log Out') }}
 			</flux:menu.item>
 		</form>
+	</div>
 
-		<form method="GET" action="{{ route('vendedor.filtro') }}" class="mb-6">
-			<div class="flex flex-wrap gap-4">
-				<input
-					type="text"
-					name="busqueda"
-					placeholder="Buscar por nombre o código..."
-					value="{{ request('busqueda') }}"
-					class="border border-gray-300 p-2 rounded w-full md:w-1/3" />
-				<select
-					name="categoria"
-					class="border border-gray-300 p-2 rounded w-full md:w-1/3">
-					<option value="">Todas las categorías</option>
-					@foreach($categorias as $cat)
-					<option value="{{ $cat->id }}" {{ request('categoria') == $cat->id ? 'selected' : '' }}>
-						{{ $cat->nombre }}
-					</option>
-					@endforeach
-				</select>
-				<button
-					type="submit"
-					class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-					Buscar
-				</button>
-			</div>
-		</form>
+	<form method="GET" action="{{ route('vendedor.filtro') }}">
+		<div class="dashboard-header-bottom">
+			<input
+				type="text"
+				name="busqueda"
+				placeholder="Buscar por nombre o código..."
+				value="{{ request('busqueda') }}" />
 
-		<div class="flex justify-end mb-4">
-			<a href="{{ route('carrito.ver') }}" class="relative inline-block">
-				<i class="fa-solid fa-cart-shopping text-3xl text-blue-700"></i>
+			<select name="categoria">
+				<option value="">Todas las categorías</option>
+				@foreach($categorias as $cat)
+				<option value="{{ $cat->id }}" {{ request('categoria') == $cat->id ? 'selected' : '' }}>
+					{{ $cat->nombre }}
+				</option>
+				@endforeach
+			</select>
+
+			<button type="submit">Buscar</button>
+
+			<a href="{{ route('carrito.ver') }}" class="cart-button">
+				<i class="fa-solid fa-cart-shopping"></i>
 				@if(isset($cantidadCarrito) && $cantidadCarrito > 0)
-				<span class="absolute -top-2 -right-3 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-					{{ $cantidadCarrito }}
-				</span>
+				<span>{{ $cantidadCarrito }}</span>
 				@endif
 			</a>
 		</div>
+	</form>
+</header>
 
 		@foreach ($categorias as $categoria)
 		<section class="mb-10">

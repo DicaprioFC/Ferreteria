@@ -6,7 +6,10 @@ use App\Models\Producto;
 use App\Models\Salida;
 use App\Models\Venta;
 use App\Models\DetalleVenta;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+
 
 class CarritoController extends Controller
 {
@@ -57,7 +60,9 @@ class CarritoController extends Controller
             'total' => collect($carrito)->sum(fn($item) => $item['precio'] * $item['cantidad']),
             'nombre_cliente' => $request->input('nombre_cliente'),
             'ci_cliente' => $request->input('ci_cliente'),
+            'user_id' => Auth::id(), // Esto ya funciona si tienes middleware 'auth'
         ]);
+        
     
         foreach ($carrito as $id => $item) {
             \App\Models\DetalleVenta::create([

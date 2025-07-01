@@ -13,10 +13,16 @@ class Proveedor extends Model
         'email',
         'telefono',
         'direccion',
+        'user_id',
     ];
 
     public function productos()
     {
         return $this->hasMany(Producto::class);
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

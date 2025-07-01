@@ -69,6 +69,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Vendedor\VendedorProductoController::class, 'index'])->name('dashboard');
 
@@ -81,7 +83,9 @@ use App\Http\Controllers\CarritoController;
 Route::get('/carrito', [CarritoController::class, 'verCarrito'])->name('carrito.ver');
 Route::post('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
 Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
-Route::post('/carrito/confirmar', [CarritoController::class, 'confirmarVenta'])->name('carrito.confirmar');
+Route::post('/carrito/confirmar', [CarritoController::class, 'confirmarVenta'])
+    ->middleware('auth')
+    ->name('carrito.confirmar');
 Route::get('/carrito', [CarritoController::class, 'verCarrito'])->name('carrito.ver');
 
 

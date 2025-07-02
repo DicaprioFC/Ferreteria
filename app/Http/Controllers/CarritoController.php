@@ -60,7 +60,6 @@ class CarritoController extends Controller
             'total' => collect($carrito)->sum(fn($item) => $item['precio'] * $item['cantidad']),
             'nombre_cliente' => $request->input('nombre_cliente'),
             'ci_cliente' => $request->input('ci_cliente'),
-            'user_id' => Auth::id(), // Esto ya funciona si tienes middleware 'auth'
         ]);
         
     

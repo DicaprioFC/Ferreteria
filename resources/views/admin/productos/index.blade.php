@@ -7,90 +7,221 @@
     <title>Gestión de Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
     <style>
+        body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .success-message {
+            background-color: #dcfce7;
+            border-left: 4px solid #22c55e;
+            color: #15803d;
+            padding: 1rem 1.25rem;
+            border-radius: 0.375rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(34, 197, 94, 0.1);
+            max-width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            max-width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .top-bar a {
+            font-weight: 600;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .top-bar a:hover {
+            color: #1e40af;
+        }
+
+        .btn-add {
+            background-color: #1e3a8a; /* azul oscuro */
+            color: white; /* texto blanco legible */
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.375rem;
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(30, 58, 138, 0.6);
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-add:hover {
+            background-color: #2563eb; /* azul más claro al pasar el mouse */
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            max-width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        thead {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+
+        th,
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th.text-right,
+        td.text-right {
+            text-align: right;
+        }
+
+        th.text-center,
+        td.text-center {
+            text-align: center;
+        }
+
+        tbody tr:hover {
+            background-color: #f3f4f6;
+        }
+
         .product-image {
             width: 40px;
-            /* Ancho fijo */
             height: 40px;
-            /* Alto fijo */
             object-fit: cover;
-            /* Mantiene proporción y recorta si es necesario */
             border-radius: 0.375rem;
-            /* Bordes redondeados (6px) */
             border: 1px solid #d1d5db;
-            /* Borde gris claro (gray-300) */
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            /* Sombra suave */
             display: block;
             margin-left: auto;
             margin-right: auto;
-            /* Centrado horizontal */
+        }
+
+        .actions a,
+        .actions button {
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            color: #2563eb;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .actions a:hover,
+        .actions button:hover {
+            color: #1e40af;
+        }
+
+        .actions button.text-red {
+            color: #dc2626;
+        }
+
+        .actions button.text-red:hover {
+            color: #991b1b;
         }
     </style>
 </head>
 
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body>
 
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-blue-800 mb-6">📦 Lista de Productos</h1>
+    <div class="container">
+        <h1>📦 Gestión de Productos</h1>
 
         @if(session('success'))
-        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded mb-4 shadow">
+        <div class="success-message" role="alert">
             {{ session('success') }}
         </div>
         @endif
 
-        <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:underline text-sm">← Volver al panel de control</a>
-            <a href="{{ route('admin.productos.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow">
-                + Agregar Producto
-            </a>
+        <div class="top-bar">
+            <a href="{{ route('admin.dashboard') }}">← Volver al panel de control</a>
+            <a href="{{ route('admin.productos.create') }}" class="btn-add">+ Agregar Producto</a>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden">
-                <thead class="bg-gray-200 text-gray-700 uppercase text-sm font-semibold">
+        <div class="table-wrapper">
+            <table>
+                <thead>
                     <tr>
-                        <th class="px-6 py-3 text-left">Código</th>
-                        <th class="px-6 py-3 text-left">Nombre</th>
-                        <th class="px-6 py-3 text-left">Categoría</th>
-                        <th class="px-6 py-3 text-left">Proveedor</th>
-                        <th class="px-6 py-3 text-right">Precio</th>
-                        <th class="px-6 py-3 text-right">Stock</th>
-                        <th class="px-6 py-3 text-center">Imagen</th>
-                        <th class="px-6 py-3 text-center">Acciones</th>
+                        <th class="text-left">Código</th>
+                        <th class="text-left">Nombre</th>
+                        <th class="text-left">Categoría</th>
+                        <th class="text-left">Proveedor</th>
+                        <th class="text-right">Precio</th>
+                        <th class="text-right">Stock</th>
+                        <th class="text-center">Imagen</th>
+                        <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody>
                     @forelse ($productos as $producto)
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4">{{ $producto->codigo }}</td>
-                        <td class="px-6 py-4">{{ $producto->nombre }}</td>
-                        <td class="px-6 py-4">{{ $producto->categoria->nombre ?? '-' }}</td>
-                        <td class="px-6 py-4">{{ $producto->proveedor->nombre ?? '-' }}</td>
-                        <td class="px-6 py-4 text-right">${{ number_format($producto->precio_venta, 2) }}</td>
-                        <td class="px-6 py-4 text-right">{{ $producto->stock }}</td>
-                        <td class="px-6 py-4 text-center">
+                    <tr>
+                        <td class="text-left">{{ $producto->codigo }}</td>
+                        <td class="text-left">{{ $producto->nombre }}</td>
+                        <td class="text-left">{{ $producto->categoria->nombre ?? '-' }}</td>
+                        <td class="text-left">{{ $producto->proveedor->nombre ?? '-' }}</td>
+                        <td class="text-right">${{ number_format($producto->precio_venta, 2) }}</td>
+                        <td class="text-right">{{ $producto->stock }}</td>
+                        <td class="text-center">
                             @if ($producto->imagen_url)
-                            <img src="{{ $producto->imagen_url }}" alt="{{ $producto->nombre }}" class="product-image">
-
-
+                            <img src="{{ $producto->imagen_url }}" alt="{{ $producto->nombre }}" class="product-image" />
                             @else
                             <span class="text-gray-400">-</span>
                             @endif
                         </td>
-                        <td class="px-6 py-4 text-center space-x-2">
-                            <a href="{{ route('admin.productos.edit', $producto) }}"
-                                class="text-blue-600 hover:text-blue-800 font-medium">Editar</a>
-                            <form action="{{ route('admin.productos.destroy', $producto) }}" method="POST" class="inline" onsubmit="return confirm('¿Eliminar este producto?');">
+                        <td class="text-center actions">
+                            <a href="{{ route('admin.productos.edit', $producto) }}">Editar</a>
+                            <form action="{{ route('admin.productos.destroy', $producto) }}" method="POST" class="inline" onsubmit="return confirm('¿Eliminar este producto?');" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-800 font-medium">Eliminar</button>
+                                <button type="submit" class="text-red">Eliminar</button>
                             </form>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="px-6 py-6 text-center text-gray-500">No hay productos registrados.</td>
+                        <td colspan="8" class="text-center text-gray-500">No hay productos registrados.</td>
                     </tr>
                     @endforelse
                 </tbody>

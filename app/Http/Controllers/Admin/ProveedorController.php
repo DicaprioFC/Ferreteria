@@ -33,7 +33,7 @@ class ProveedorController extends Controller
         ]);
     
         $data = array_merge($validated, [
-            'user_id' => Auth::id(),
+           
         ]);
     
         Proveedor::create($data);

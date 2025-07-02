@@ -25,13 +25,17 @@ class SalidaController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        // Validar solo lo que viene del cliente
+        $validated = $request->validate([
             'producto_id' => 'required|exists:productos,id',
             'cantidad' => 'required|integer|min:1',
             'precio_unitario' => 'required|numeric|min:0',
         ]);
     
-        $data['user_id'] = Auth::id(); // Esto fuera del validate
+        // Fusionar user_id directamente en el arreglo validado
+        $data = array_merge($validated, [
+            'user_id' => Auth::id(),
+        ]);
     
         $producto = Producto::find($data['producto_id']);
     
@@ -41,10 +45,10 @@ class SalidaController extends Controller
     
         Salida::create($data);
     
-        $producto->stock -= $data['cantidad'];
-        $producto->save();
+        $producto->decrement('stock', $data['cantidad']);
     
         return redirect()->route('admin.salidas.index')->with('success', 'Salida registrada y stock actualizado.');
     }
+    
     
 }

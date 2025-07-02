@@ -157,6 +157,7 @@
 
 <body>
 
+<<<<<<< HEAD
 	<div class="container mx-auto p-6 dashboard-header">
 
 		<h1>Dashboard de Vendedor</h1>
@@ -192,14 +193,52 @@
 			<!-- CARRITO -->
 			<a href="{{ route('carrito.ver') }}" class="relative inline-block">
 				<i class="fa-solid fa-cart-shopping text-3xl text-blue-700"></i>
+=======
+<header class="dashboard-header">
+	<div class="dashboard-header-top">
+		<h1 class="dashboard-header-title">Dashboard de Vendedor</h1>
+
+		<form method="POST" action="{{ route('logout') }}">
+			@csrf
+			<flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="logout-button">
+				{{ __('Log Out') }}
+			</flux:menu.item>
+		</form>
+	</div>
+
+	<form method="GET" action="{{ route('vendedor.filtro') }}">
+		<div class="dashboard-header-bottom">
+			<input
+				type="text"
+				name="busqueda"
+				placeholder="Buscar por nombre o código..."
+				value="{{ request('busqueda') }}" />
+
+			<select name="categoria">
+				<option value="">Todas las categorías</option>
+				@foreach($categorias as $cat)
+				<option value="{{ $cat->id }}" {{ request('categoria') == $cat->id ? 'selected' : '' }}>
+					{{ $cat->nombre }}
+				</option>
+				@endforeach
+			</select>
+
+			<button type="submit">Buscar</button>
+
+			<a href="{{ route('carrito.ver') }}" class="cart-button">
+				<i class="fa-solid fa-cart-shopping"></i>
+>>>>>>> c300b40c61fa9989320edcaf465a42f2e8b7b272
 				@if(isset($cantidadCarrito) && $cantidadCarrito > 0)
-				<span class="absolute -top-2 -right-3 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-					{{ $cantidadCarrito }}
-				</span>
+				<span>{{ $cantidadCarrito }}</span>
 				@endif
 			</a>
 		</div>
+<<<<<<< HEAD
 	</div>
+=======
+	</form>
+</header>
+>>>>>>> c300b40c61fa9989320edcaf465a42f2e8b7b272
 
 	<div class="container mx-auto p-6">
 		@foreach ($categorias as $categoria)

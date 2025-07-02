@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProveedorController extends Controller
 {
@@ -30,12 +31,17 @@ class ProveedorController extends Controller
             'telefono' => 'nullable|string|max:50',
             'direccion' => 'nullable|string|max:255',
         ]);
-
-        Proveedor::create($validated);
-
+    
+        $data = array_merge($validated, [
+            'user_id' => Auth::id(),
+        ]);
+    
+        Proveedor::create($data);
+    
         return redirect()->route('admin.proveedores.index')
             ->with('success', 'Proveedor creado exitosamente.');
     }
+    
 
     public function destroy(Proveedor $proveedor)
     {

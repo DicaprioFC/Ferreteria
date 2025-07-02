@@ -4,51 +4,56 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Dashboard Vendedor</title>
+
+	<!-- Fuente Inter para mejor legibilidad -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 	<link rel="stylesheet" href="styles.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 	<style>
-		/* Contenedor del carrito */
+		/* TIPOGRAFÍA BASE */
+		body {
+			font-family: 'Inter', sans-serif;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			color: #111827;
+			background-color: #f3f4f6;
+		}
+
+		/* CARRITO */
 		.relative.inline-block {
 			position: relative;
 			cursor: pointer;
 		}
 
-		/* Icono del carrito */
 		.fa-cart-shopping {
 			color: #2563eb;
-			/* azul Tailwind-600 */
-			transition: color 0.3s ease;
+	        transition: color 0.3s ease;
+	        font-size: 2.5rem; /* aumenta tamaño (40px aprox.) */
 		}
 
 		.fa-cart-shopping:hover {
 			color: #1e40af;
-			/* azul más oscuro al pasar el mouse */
 		}
 
-		/* Contador de cantidad */
 		.relative.inline-block>span {
 			position: absolute;
 			top: -8px;
 			right: -10px;
 			background-color: #dc2626;
-			/* rojo Tailwind-600 */
 			color: white;
 			font-size: 0.75rem;
-			/* text-xs */
 			font-weight: 700;
 			padding: 2px 6px;
 			border-radius: 9999px;
-			/* completamente redondeado */
 			box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 			user-select: none;
 			pointer-events: none;
-
-			/* Animación de aparición */
 			transform-origin: center;
 			animation: pop-in 0.3s ease forwards;
 		}
 
-		/* Animación para que el contador "salte" cuando cambia */
 		@keyframes pop-in {
 			0% {
 				transform: scale(0.5);
@@ -64,51 +69,127 @@
 				transform: scale(1);
 			}
 		}
+
+		/* HEADER */
+		.dashboard-header {
+			background-color: #ffffff;
+			padding: 1.5rem;
+			margin-bottom: 2rem;
+			border-radius: 0.75rem;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+			border: 1px solid #e5e7eb;
+		}
+
+		.dashboard-header h1 {
+			margin-bottom: 1.5rem;
+			color: #1e3a8a;
+			text-align: center;
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
+
+		.header-flex {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 1rem;
+		}
+
+		.logout-btn flux\:menu\.item {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background-color: #dc2626;
+			color: white;
+			padding: 0.5rem 1rem;
+			border-radius: 0.5rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.logout-btn flux\:menu\.item:hover {
+			background-color: #b91c1c;
+		}
+
+		.search-form {
+			flex: 1;
+			max-width: 600px;
+		}
+
+		.search-form form {
+			display: flex;
+			flex-wrap: nowrap;
+			align-items: center;
+			gap: 0.5rem;
+			background-color: #f9fafb;
+			padding: 1rem;
+			border-radius: 0.5rem;
+			border: 1px solid #e5e7eb;
+		}
+
+		.search-form input,
+		.search-form select {
+			flex: 1 1 auto;
+			min-width: 0;
+			background-color: #ffffff;
+			border: 1px solid #d1d5db;
+			border-radius: 0.5rem;
+			padding: 0.5rem 0.75rem;
+		}
+
+		.search-form button {
+			flex-shrink: 0;
+			background-color: #2563eb;
+			color: white;
+			border-radius: 0.5rem;
+			padding: 0.5rem 1rem;
+			white-space: nowrap;
+			transition: background-color 0.3s ease;
+		}
+
+		.search-form button:hover {
+			background-color: #1e40af;
+		}
 	</style>
 </head>
 
-<body class="bg-gray-100">
+<body>
 
-	<div class="container mx-auto p-6">
+	<div class="container mx-auto p-6 dashboard-header">
 
+		<h1>Dashboard de Vendedor</h1>
 
-		<h1 class="text-2xl font-bold mb-6">Dashboard de Vendedor</h1>
+		<div class="header-flex">
 
+			<!-- LOGOUT -->
+			<form method="POST" action="{{ route('logout') }}" class="logout-btn">
+				@csrf
+				<flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
+					{{ __('Salir') }}
+				</flux:menu.item>
+			</form>
 
-		<form method="POST" action="{{ route('logout') }}" class="w-full">
-			@csrf
-			<flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-				{{ __('Log Out') }}
-			</flux:menu.item>
-		</form>
-
-		<form method="GET" action="{{ route('vendedor.filtro') }}" class="mb-6">
-			<div class="flex flex-wrap gap-4">
-				<input
-					type="text"
-					name="busqueda"
-					placeholder="Buscar por nombre o código..."
-					value="{{ request('busqueda') }}"
-					class="border border-gray-300 p-2 rounded w-full md:w-1/3" />
-				<select
-					name="categoria"
-					class="border border-gray-300 p-2 rounded w-full md:w-1/3">
-					<option value="">Todas las categorías</option>
-					@foreach($categorias as $cat)
-					<option value="{{ $cat->id }}" {{ request('categoria') == $cat->id ? 'selected' : '' }}>
-						{{ $cat->nombre }}
-					</option>
-					@endforeach
-				</select>
-				<button
-					type="submit"
-					class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-					Buscar
-				</button>
+			<!-- BUSCADOR -->
+			<div class="search-form">
+				<form method="GET" action="{{ route('vendedor.filtro') }}">
+					<input type="text" name="busqueda" placeholder="Buscar por nombre o código..." value="{{ request('busqueda') }}">
+					<select name="categoria">
+						<option value="">Todas las categorías</option>
+						@foreach($categorias as $cat)
+						<option value="{{ $cat->id }}" {{ request('categoria') == $cat->id ? 'selected' : '' }}>
+							{{ $cat->nombre }}
+						</option>
+						@endforeach
+					</select>
+					<button type="submit">
+						<i class="fa-solid fa-magnifying-glass mr-2"></i>Buscar
+					</button>
+				</form>
 			</div>
-		</form>
 
-		<div class="flex justify-end mb-4">
+			<!-- CARRITO -->
 			<a href="{{ route('carrito.ver') }}" class="relative inline-block">
 				<i class="fa-solid fa-cart-shopping text-3xl text-blue-700"></i>
 				@if(isset($cantidadCarrito) && $cantidadCarrito > 0)
@@ -118,7 +199,9 @@
 				@endif
 			</a>
 		</div>
+	</div>
 
+	<div class="container mx-auto p-6">
 		@foreach ($categorias as $categoria)
 		<section class="mb-10">
 			<h2 class="text-xl font-semibold text-blue-800 mb-4">{{ $categoria->nombre }}</h2>
@@ -152,7 +235,6 @@
 						</form>
 
 						<p class="price">Bs.&nbsp;{{ number_format($producto->precio_venta, 2, '.', ',') }}</p>
-
 					</div>
 				</div>
 				@empty
@@ -161,7 +243,6 @@
 			</div>
 		</section>
 		@endforeach
-
 	</div>
 
 </body>
